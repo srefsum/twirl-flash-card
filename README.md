@@ -1,9 +1,13 @@
 # twirl-flash-card
 Flash card system for twirling competitions
 
+# System technology
 Standard LAMP application, with ubuntu/linux, apache, mysql, perl/mojolicious, javascript
 
-#TODO list:
+# Purpose
+Collect scores from judges and display the aggregate on a big screen using standard web pages.
+
+# TODO list:
    
    ## Primary tasks
     2. Add project files
