@@ -1,7 +1,7 @@
 # twirl-flash-card
 Flash card system for twirling competitions
 
-[system diagram]: https://github.com/srefsum/twirl-flash-card/tree/master/Doc/images/1.SystemDiagram.PNG "System diagram"
+![system diagram](https://github.com/srefsum/twirl-flash-card/tree/master/Doc/images/1.SystemDiagram.PNG "System diagram")
 
 # System technology
 Standard LAMP application, with ubuntu/linux, apache, mysql, perl/mojolicious, javascript
