@@ -10,27 +10,28 @@ Collect scores from judges and display the aggregate on a big screen using stand
 # TODO list:
    
    ## Primary tasks
-    2. Add project files
+    1. Add project files
     2. Remove unused files
-    2. Create mysql template
+    3. Create mysql template
     
-    
-    
-   ## Develop
-    2. Add reorder 
+   ## Develop (in no particular order)
+    1. Add reorder 
     2. Add list of persons logged in and when
-    2. Sort out internal start numbers
-    2. Sort out Athlete state handling
-    2. Start generating simple reports (xlsx/pdf)
-    2. find logos for troops and add
-    2. finish language settings across all pages
-    2. start using global config file
-    2. create apache sites- file
+    3. Sort out internal start numbers
+    4. Sort out Athlete state handling
+    5. Start generating simple reports (xlsx/pdf)
+    6. find logos for troops and add
+    7. finish language settings across all pages
+    8. start using global config file
+    9. create apache sites- file
 
    ##  Documentations
-    2. Installation
-    2. System requirements
-    2.
+    1. System requirements
+    2. Installation guide
+    3. Administration guide
+    4. User guide for judges
+    5. User guide for presenter
+    6. User guide for video stream connection
         
     
 
