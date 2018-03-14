@@ -1,0 +1,215 @@
+@@ activatevenueevent.html.ep
+% extends 'parent';
+
+   % content TitleLine   => begin
+      <link rel="shortcut icon" href="<%= url_for '/static/favicon.jpg' %>"> 
+      <title>Flash Card</title>
+   % end
+
+
+   % content TopArea     => begin
+               <tr> <!-- row 3 -->
+                  %= form_for '/searchEvents' => {format => 'txt'} => (method => 'POST') => begin
+                  <td align=right >
+                      <%=  'VenuesId'%>
+                  </td> 
+                  <td></td>
+                  <td align=left>
+                     <%= text_field 'VenuesId' , value=> $VenuesId  , id=> 'VenuesId' %>
+                  </td>
+                  <td>
+                        
+                  </td>
+                  <td></td>
+                  </tr>
+               <tr> <!-- row 4 -->
+                  <td align=right >
+                     <%=  'Events' %>
+                  </td>
+                  <td></td>
+                  <td align=left>
+                     <%= text_field 'Events' , value=> $Events, id => 'Events'  %>
+                  </td>
+                  <td>
+                     <%= submit_button 'Search Events', id => 'searchEvents' %>
+                  </td>
+                  <td></td>
+                  %= end
+               </tr>                 
+   % end               
+
+   % content CentralArea => begin               
+               
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+
+               <tr>
+                   <td colspan=5>
+                   <table id='ContentTable' width="95%">
+               <tr id='row4A'> 
+                  <th align=right>#</th>
+                  <td></td>
+                  <th align=right> Lane </th>
+                  <td> </td>
+                  <th  align=center > VenueId:EventId </th>
+                  <td> </td>
+                  <td  align=left ></td>
+               </tr>
+               
+               
+               </tr>
+               %  if (defined($Content)) { 
+               %  if (defined($Content->{Events})) {
+               %  for (my $key=0; $key < scalar   @{$Content->{Events}}; $key++) {
+               %  my $CheckId = 'CheckStateNr' . $key;
+               <tr id= <%= $CheckId %> > 
+                  <td align=right>
+                  <%= $key %>  
+                  </td>
+                  <td align=left > 
+                     %  if (defined($Content)) {
+                         <%=  $Content->{Events}[$key]{'Category'}%> 
+                         <%=  $Content->{Events}[$key]{'Division'} %> 
+                         <%=  $Content->{Events}[$key]{'Level'}  %> 
+                  </td>
+                  <td id='Lane' align=right> 
+                         <%=  $Content->{Events}[$key]{'Lane'}  %> 
+				  </td>
+                  <td> </td>
+                  <td  id='VenueId' align=center>
+                         <%=   $Content->{Events}[$key]{'VenueId'}. ":"       %> 
+				  
+                     %  }
+                     %  if (defined($Content)) {
+                         <%=   $Content->{Events}[$key]{'EventsId'}       %> 
+                     %  }
+                  </td>
+                  <td>
+				  <div id= <%= $CheckId %> >
+					 %  {
+					 %  my $NotStarted = undef ;my $Active = undef ;my $Completed = undef;
+				     %  if ($Content->{Events}[$key]{'State'} eq "NotStarted")    { $NotStarted = "checked";} 
+				     %  elsif ($Content->{Events}[$key]{'State'} eq "Active" )    { $Active =     "checked";} 
+				     %  elsif ($Content->{Events}[$key]{'State'} eq "Completed")  { $Completed =  "checked";} 
+					    
+						%if ($NotStarted eq "checked") {
+							<%= radio_button $CheckId => 1, checked => $NotStarted, id => "NotStarted" %>
+						%} else {
+							<%= radio_button $CheckId => 1, id => "NotStarted" %>
+						%}
+						%if ($Active eq "checked") {
+							<%= radio_button $CheckId => 1, checked => $Active,     id => "Active" %>
+						%} else {
+							<%= radio_button $CheckId => 1, id => "Active" %>
+						%}
+						
+						%if ($Completed eq "checked") {
+							<%= radio_button $CheckId => 1, checked => $Completed,  id => "Completed" %>
+						%} else {
+							<%= radio_button $CheckId => 1,id => "Completed" %>
+						%}
+                        <%= label_for $CheckId => 'State' %>
+				     %  }
+				  </div>
+                  </td>
+                  <td></td>
+               </tr>
+
+               % }
+               % }
+               % }
+            
+                   </table>
+                   </td>
+               </tr>
+               
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+                  </td>
+                  <td>
+                  </td>
+               </tr>
+
+
+               
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+                  </td>
+                  <td>
+                  </td>
+               </tr>
+               
+   % end               
+
+   
+   % content LowerArea   => begin
+               <tr id='row21'> <!-- row 21 -->
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align='right'>
+                     %= form_for '/SetStateforEvent' => {format => 'txt' } => (onsubmit => "return onsubmitSetStateforEvents()") => (method => 'POST') =>  begin 
+                        <%= hidden_field SetStateforEvents => $EnContent , id => 'SetStateforEvents'  %>                     
+                        <%= submit_button 'Submit new States', id => 'SetStateforEventsButton' %>
+                     %= end
+                  </td>
+               </tr>
+   % end
+   
+   
+   % content BottomCodeSection     => begin
+      <script type="text/javascript">
+
+		 var EnCount =  <%=  $EnCount   %> ;
+
+         function onsubmitSetStateforEvents() {
+			var table = document.getElementById("ContentTable");
+			var RadioId = '';
+			var Events        = [];
+			var jsonReqObject = {};
+			jsonReqObject.Events = Events;
+			
+			for (var i = 0, row; row = table.rows[i]; i++) {
+				var Event         = {};
+			   //iterate through rows
+			   //rows would be accessed using the "row" variable assigned in the for loop
+			   console.log(row.id);
+			   RadioId = row.id; 
+			   for (var j = 0, col; col = row.cells[j]; j++) {
+				 //iterate through columns
+				 //columns would be accessed using the "col" variable assigned in the for loop
+				 console.log(col.innerText);
+				 if (col.id === 'Lane')     { Event.Lane     = col.innerText; }
+				 if (col.id === 'EventsId') { Event.EventsId = col.innerText; }
+				 if (col.id === 'VenueId')  { Event.VenueId   = col.innerText; }
+			   }  
+				var radios = document.getElementsByName(RadioId);
+				for (var r = 0, length = radios.length; r < length; r++) {
+					if (radios[r].checked)
+					{
+						// do whatever you want with the checked radio
+						Event.State = radios[r].id;
+						// only one radio can be logically checked, don't check the rest
+						break;
+					}
+				}
+				if (Event.Lane) {
+				   jsonReqObject.Events[i] = Event;
+				}
+			}		 
+			document.getElementById("SetStateforEvents").value = JSON.stringify(jsonReqObject);
+			return true;
+		 };
+      </script>   
+   % end   

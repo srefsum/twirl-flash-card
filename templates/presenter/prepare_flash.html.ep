@@ -1,0 +1,94 @@
+@@ deactivate.html.ep
+% extends 'parent';
+
+   % content TopArea     => begin
+               <tr> <!-- row 3 -->
+               </tr>          
+               <tr> <!-- row 4 -->
+               </tr>  
+               <tr> <!-- row 4 -->
+               </tr>  
+               <tr> <!-- row 4 -->
+               
+   % end               
+
+   % content CentralArea => begin               
+               
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+
+               <tr id='row10'> <!-- row 10 -->          
+                  <td colspan=6 align="center" width="100%">
+                     <div id="table-wrapper">
+                        <div id="table-scroll">    
+                        <table id="AthleteTable">
+                           <thead id="tableHead">
+                           <tr>
+                              <th class="Pref" width="4%"  >Event No</th>
+                              <th class="Pref" width="4%"  >StartNo</th>
+                              <th class="Pref" width="4%"  >Id</th>
+                              <th class="Pref" width="36%" >Athlete</th>
+                              <th class="Pref" width="20%" >Category</th>
+                              <th class="Pref" width="4%"  >Lane</th>
+                              <th class="Pref" width="4%"  >Flash</th>
+                           </tr>
+                           </thead>
+                           <tbody id="tableBody">
+                           % for (my $i = 0; $i < scalar @$AthleteActive;$i++) {
+						   %  my $Traffic = 'traffic_' . $i;
+                             <tr > 
+                              <td align="center" id="EventsId">     <%= $AthleteActive->[$i]{EventsId} %> </td>  
+                              <td align="center" id="StartNo">      <%= $AthleteActive->[$i]{StartNo} %> </td>
+                              <td align="center" id="AthletesId">   <%= $AthleteActive->[$i]{AthletesId} %> </td>
+                              <td align="left"   id="AthletesName"> <%= $AthleteActive->[$i]{AthletesName} %> </td>
+                              <td align="left"   id="Category">     <%= $AthleteActive->[$i]{Category} . " " . 
+							                           $AthleteActive->[$i]{Division}. " " . 
+													   $AthleteActive->[$i]{Level} %>
+							  </td>
+                              <td align="center" id="Lane">         <%= $AthleteActive->[$i]{Lane} %> </td>
+							  <td align=right>
+								%= form_for '/flash' => {format => 'txt'} => (method => 'POST') => begin
+									<%= hidden_field VenueId => $AthleteActive->[$i]{VenueId}  %>
+									<%= hidden_field EventsId => $AthleteActive->[$i]{EventsId}  %>
+									<%= hidden_field StartNo => $AthleteActive->[$i]{StartNo}  %>
+									<%= hidden_field AthletesId => $AthleteActive->[$i]{AthletesId}  %>
+									<%= submit_button "Flash", %>
+								 %= end				  
+							  </td>
+                              </tr>
+                           % }               
+                           </tbody>
+                        </table>
+                        </div>
+                     </div>
+                  </td>   
+               </tr>
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+                  </td>
+                  <td></td>
+               </tr>
+   % end               
+
+   % content LowerArea   => begin
+               <tr id='row21'> <!-- row 21 -->
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+ 
+                  </td>
+                  <td></td>
+               </tr>
+   % end
+
+   % content BottomCodeSection     => begin
+   % end   

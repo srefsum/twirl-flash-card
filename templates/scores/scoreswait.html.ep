@@ -1,0 +1,395 @@
+% title   'ScoresWait';
+
+   % content TopArea     => begin
+               <tr id='row2A'>
+                  <th id='col1' align="right" > <%=  $StartNoLabel%>:</th>
+                  <th id='col2' > </th>
+                     <td id='col3' align="left">  </td>
+                   <td id='col5' > </td>
+               <tr id='row2B'>
+                  <th id='col1' align="right" > <%=  $AthleteNumberLabel%>:</th>
+                  <th id='col2' > </th>
+                     <td id='col3' align="left">  </td>
+                   <td id='col5' > </td>
+               </tr>   
+               <tr id='row2C'>
+                  <th id='col1' align="right"> <%=  $AthleteLabel%></th>
+                  <th id='col2' > </th>
+                  <td id='col3' align="left">  </td>
+                  <th id='col4' > </th>
+                  <th id='col5' > </th>
+               </tr>   
+   % end               
+
+   % content CentralArea => begin               
+               
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+
+               <tr id='row3B'>
+                  <td colspan=5 align="center">
+                  
+                     <div id="table-wrapper">
+                     <div id="table-scroll">    
+                     <table id="prefix_table">
+                        <thead id="tableHead">
+                        <tr>
+                           <th class="nr">    <%= $TableTitleNo %> </th>
+                           <th class="Pref">  <%= $TableTitleSection %></th>
+                           <th class="start"> <%= $TableTitlePoints %></th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                     </table>
+                     </div>
+                     </div>
+                     </td>   
+               </tr>
+			   
+              %= form_for '/SaveScore' => (method => 'POST') => begin
+               <tr id='row3'>
+                   <th id='col1' align="right">1:</th>
+				   <th id='col2'></th>
+                   <th id='col3' align="left"> <%= $Section_1 %></th>
+                   <th id='col4' align="right"> 
+                           <%= number_field  'Section_1' , id=> 'Section_1', min=>"0", max=>"20", step=>"0.1", disabled=>1 %> 
+                   </th>
+                  <td align="left">
+                     <table border="0">
+                        <td></td>
+                        <td></td>
+                     </table>
+                  </td>          
+               </tr>
+               <tr id='row4'>
+                   <th id='col1' align="right"> 2: </th>
+                   <th id='col2'></th>
+                   <th id='col3' align="left" > <%= $Section_2 %></th>
+                   <th id='col4' align="right"> 
+						   <%= number_field  'Section_2' ,  id=> 'Section_2', min=>"0", max=>"20", step=>"0.1" , disabled=>1 %> 
+                   </th>
+                  <td align="left">
+                     <table border="0">
+                        <td></td>
+                        <td></td>
+                     </table>
+                  </td>          
+               </tr>
+               <tr id='row5'>
+                   <th id='col1' align="right"> 3: </th>
+                   <th id='col2'></th>
+                   <th id='col3' align="left" > <%=$Section_3 %></th>
+                   <th id='col4' align="right"> 
+						   <%= number_field  'Section_3' , id=> 'Section_3', min=>"0", max=>"20", step=>"0.1", disabled=>1 %> 
+                    </th>
+                  <td align="left">
+                     <table border="0">
+                        <td></td>
+                        <td></td>
+                     </table>
+                  </td>          
+               </tr>
+               <tr id='row6'>
+                   <th id='col1' align="right"> 4: </th>
+                   <th id='col2'></th>
+                   <th id='col3' align="left" > <%=$Section_4 %></th>
+                   <th id='col4' align="right"> 
+						   <%= number_field  'Section_4' ,  id=> 'Section_4', min=>"0", max=>"20", step=>"0.1", disabled=>1 %> 
+                   </th>
+                  <td align="left">
+                     <table border="0">
+                        <td></td>
+                        <td></td>
+                     </table>
+                  </td>          
+               </tr>
+               <tr id='row7'>
+                   <th id='col1' align="right"> 5: </th>
+                   <th id='col2'></th>
+                   <th id='col3' align="left" > <%=$Section_5 %></th>
+                   <th id='col4' align="right"> 
+						   <%= number_field  'Section_5' , id=> 'Section_5', min=>"0", max=>"20", step=>"0.1", disabled=>1 %> 
+                   </th>
+                  <td align="left">
+                     <table border="0">
+                        <td></td>
+                        <td></td>
+                     </table>
+                  </td>          
+               </tr>
+               <tr id='row8'>
+                   <th id='col1' align="right"> <%=$Total_Score %>: </th>
+                   <th id='col2' > </th>
+                   <td id='col3' align="left" > </td>
+                   <th id='pbd_value' align="right">  </th>
+                  <td align="left">
+                     <table border="0">
+                        <td></td>
+                        <td></td>
+                     </table>
+                  </td>          
+               </tr>
+			                 
+               <tr id='row9'>
+                   <th id='col1' align="right"> <%=$Section_Deduction %>: </th>
+                   <th id='col2' > </th>
+                   <td id='col3' align="left" >		</td>
+                   <th id='col4' align="right"> 
+						   <%= number_field  'Section_Deduction' , id=> 'Section_Deduction', min=>"0", max=>"100", step=>"0.1", disabled=>1 %> 
+                   </th>
+                  <td align="left">
+                     <table border="0">
+                        <td></td>
+                        <td></td>
+                     </table>
+                  </td>          
+               </tr>
+
+               <tr id='row9'>
+                   <th id='col1' align="right"> <%=$Total_After_Deduction %>: </th>
+                   <th id='col2' > </th>
+                   <td id='col3' align="left" ></td>
+                   <th id='pad_value' align="right"> 
+                           
+                   </th>
+                  <td align="left">
+                     <table border="0">
+                        <td></td>
+                        <td></td>
+                     </table>
+                  </td>          
+               </tr>
+			   % end               
+	% end               
+
+   % content LowerArea   => begin
+               <tr id='row21'> <!-- row 21 -->
+                  <td> 
+				  <div id="traffic">  
+				  
+				  </div>				  
+				  </td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+                     %= form_for '/Scores' => {format => 'txt'} => (method => 'POST') => begin
+                        <%= submit_button "$SubmitButtLabl", id => 'Scores', onclick => "doFunction();" %>
+                        <%=  hidden_field Skjema => '/submit', id => 'Skjema'  %>  
+                        <%= hidden_field AthleteId         => $AthleteId,      id => 'AthleteId'  %>
+                        <%= hidden_field ValidAthID        => $ValidAthID,     id => 'ValidAthID' %>
+                        <%= hidden_field AthleteName       => $AthleteName,    id => 'AthleteName'%>
+                        <%= hidden_field StartNo           => $StartNo,        id => 'StartNo'    %>
+                        <%= hidden_field VenueId           => $VenueId,        id => 'VenueId'    %>
+                        <%= hidden_field EventsId          => $EventsId,       id => 'EventsId'    %>
+                        <%= hidden_field JudgeId           => $JudgeId,        id => 'JudgeId'    %>
+                        <%= hidden_field JudgeName         => $JudgeName,      id => 'JudgeName'  %>
+                        <%= hidden_field Section_1_val     => $Section_1_val,  id => 'Section_1_val'  %>
+                        <%= hidden_field Section_2_val     => $Section_2_val,  id => 'Section_2_val'  %>
+                        <%= hidden_field Section_3_val     => $Section_3_val,  id => 'Section_3_val'  %>
+                        <%= hidden_field Section_4_val     => $Section_4_val,  id => 'Section_4_val'  %>
+                        <%= hidden_field Section_5_val     => $Section_5_val,  id => 'Section_5_val'  %>
+                        <%= hidden_field Section_Deduction_val     => $Section_Deduction_val,  id => 'Section_Deduction_val'  %>
+						
+                     %= end
+                  </td>
+                  <td align=right>
+                  </td>
+               </tr>
+   % end
+
+   % content BottomCodeSection     => begin
+       <script language="javascript" type="text/javascript">
+		var count    = <%= $EventJudgesCnt %>; // number of Judges
+		var wide     = 20;
+		var narrow   = 10;
+		var variable = 2;
+		var base     = 8;
+		var cliks    = 0;
+
+		function TableWidth (cnt) {
+			var width = (cnt*wide)+((cnt-1)*narrow) + (variable * (cnt-2)) + base; 
+			return width;
+		}
+
+		function tableCreate() {
+			var body = document.getElementById('traffic');
+			var tbl = document.createElement('table');
+			var mywidth = TableWidth(count);
+			mywidth += "px";
+			tbl.style.width = mywidth;
+			tbl.setAttribute('class', 'mytable');
+			// tbl.setAttribute('width', mywidth);
+			var tbdy = document.createElement('tbody');
+			for (var i = 0; i < 1; i++) {
+				var tr = document.createElement('tr');
+				for (var j = 0; j < count; j++) {
+						if ( j > 0 ) {
+							var bl = document.createElement('td');
+							var br = document.createElement('br');
+							//bl.appendChild(document.createTextNode('\u0020'));
+							bl.setAttribute('class', 'bl');
+							bl.appendChild(br);
+							tr.appendChild(bl);
+						}
+						var td = document.createElement('td');
+						var br = document.createElement('br');
+						var idStr = "traffic" + (j+1);
+						//td.appendChild(document.createTextNode('\u0020'));
+						td.setAttribute('id', idStr);
+						td.setAttribute('class', 'td');
+						td.appendChild(br);
+						tr.appendChild(td);
+				}
+				tbdy.appendChild(tr);
+			}
+			tbl.appendChild(tbdy);
+			body.appendChild(tbl);
+		}
+
+		function trafficColor(sqr,val) {
+			//var array_color = ['red','red', 'red', 'yellow','yellow','green','green'];       
+			var array_color = [	'#FF0000','#FF6347', '#FF8C00', '#FFD700','#FFFF00', '#32CD32','#006400'];       
+			var str = "traffic";
+			str += (sqr + 1);
+			console.log(str);
+			console.log(str);
+			console.log(array_color[val]);
+			var x = document.getElementById(str);
+			x.style.backgroundColor = array_color[val];
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+		   // your code here
+		   tableCreate();
+		}, false);
+
+
+
+	   
+	   function doFunction() { 
+			document.getElementById("Section_1_val").value = $('#Section_1').val();
+			document.getElementById("Section_2_val").value = $('#Section_2').val();
+			document.getElementById("Section_3_val").value = $('#Section_3').val();
+			document.getElementById("Section_4_val").value = $('#Section_4').val();
+			document.getElementById("Section_5_val").value = $('#Section_5').val();
+			document.getElementById("Section_Deduction_val").value = $('#Section_Deduction').val();
+	   };
+	   
+       $(function() {
+               var $foo0 = $('textarea[id$=foo0]');
+               var $foo1 = $('textarea[id$=foo1]');
+               $foo0.scroll(function() {
+                   $foo1.scrollTop($foo0.scrollTop());
+               });
+           });
+
+		   
+		   
+      var ws;
+      if (window.location.protocol !== 'https:') {
+         ws = new WebSocket("ws://"+location.hostname+':'+location.port+"/ws/echo_prefix");
+      } else {
+         ws = new WebSocket("wss://"+location.hostname+':'+location.port+"/ws/echo_prefix");
+      }
+
+      function SendSocketMessage(ws,x) {
+         if (ws.readyState == 1) {
+            ws.send(x);
+         } else {
+            console.log("WebSocket status : ", ws.readyState);
+            console.log("WebSocket message: ", x);
+         }
+      }
+
+      function CreateTweet( id) {
+			var tweet = {
+				  tweet_id : id,
+					 Section_1     : encodeURI($('#Section_1').val()),
+					 Section_2     : encodeURI($('#Section_2').val()),
+					 Section_3     : encodeURI($('#Section_3').val()),
+					 Section_4     : encodeURI($('#Section_4').val()),
+					 Section_5     : encodeURI($('#Section_5').val()),
+					 Section_Deduction : encodeURI($('#Section_Deduction').val()),
+					 AthleteId     : encodeURI($('#AthleteId').val()),
+					 AthleteName   : encodeURI($('#AthleteName').val()),
+					 JudgeId       : encodeURI($('#JudgeId').val()),
+					 JudgeName     : encodeURI($('#JudgeName').val()),
+					 VenueId       : encodeURI( <%= $VenueId %> ),
+					 EventsId      : encodeURI( <%= $EventsId %> ),
+					 StartNo       : encodeURI( <%= $StartNo %> ),
+					 }; 
+			  return tweet;
+      }
+               
+		ws.onopen = function () {
+		   var new_tweets = CreateTweet(); 
+
+			var x = JSON.stringify(new_tweets);
+			SendSocketMessage(ws,x);
+	   };     
+		
+		$('#Section_Deduction').keyup(function (event) {
+  		     var new_tweets = CreateTweet('#keys');         
+			 var x = JSON.stringify(new_tweets);
+			 SendSocketMessage(ws,x);
+		});
+        
+       // Incoming messages
+       ws.onmessage = function(event) {
+	   
+			 var obj = JSON.parse(event.data);
+			 
+			 if (obj.hasOwnProperty('Section_1')) {
+			    var mycell = document.getElementById('Section_1');
+			    mycell.value = decodeURI (obj.Section_1);
+			 }
+			 if (obj.hasOwnProperty('Section_2')) {
+			    var mycell = document.getElementById('Section_2');
+			    mycell.value = decodeURI (obj.Section_2);
+
+			 }
+			 if (obj.hasOwnProperty('Section_3')) {
+			    var mycell = document.getElementById('Section_3');
+			    mycell.value = decodeURI (obj.Section_3);
+			 }
+			 if (obj.hasOwnProperty('Section_4')) {
+			    var mycell = document.getElementById('Section_4');
+			    mycell.value = decodeURI (obj.Section_4);
+
+			 }
+			 if (obj.hasOwnProperty('Section_5')) {
+			    var mycell = document.getElementById('Section_5');
+			    mycell.value = decodeURI (obj.Section_5);
+			 }
+			 if (obj.hasOwnProperty('Section_pbd')) {
+			    var mycell = document.getElementById('pbd_value');
+			    mycell.childNodes["0"].nodeValue = decodeURI (obj.Section_pbd);
+			 }
+			 if (obj.hasOwnProperty('Section_pad')) {
+			    var mycell = document.getElementById('pad_value');
+			    mycell.childNodes["0"].nodeValue = decodeURI (obj.Section_pad);
+			 }
+			 if (obj.hasOwnProperty('AllScoresCounts')) {
+				 for (i = 0; i < obj.AllScoresCounts.length; i++) { 
+					trafficColor( i, obj.AllScoresCounts[i]); 
+				  }
+			 }
+
+		 
+            //$('#prefix_value').focus();
+        };
+
+        // Outgoing messages
+        window.setInterval(function() {
+			location.reload(1);
+         }, 2000);
+     
+   </script>
+
+% end   

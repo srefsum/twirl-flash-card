@@ -1,0 +1,100 @@
+@@ toppage.html.ep
+% extends 'parent';
+
+   % content TitleLine   => begin
+      <link rel="shortcut icon" href="<%= url_for '/static/favicon.png' %>"> 
+      <title>Nominandum</title>
+   % end
+
+
+   % content TopCodeSection     => begin
+      <style type="text/css">            
+         input[type="submit"] {
+            text-align:center;
+            width:100px;
+            height:80px;
+            white-space:normal;
+         }         
+        
+      </style>
+   % end
+
+   % content TopArea     => begin
+            <tr> <!-- row 3 -->
+            </tr>          
+            <tr> <!-- row 4 -->
+            </tr>  
+   % end
+
+   % content CentralArea => begin
+               <tr id='row3'>
+                  %= form_for '/hostname' => (method => 'GET') => begin
+                     <th id='col1' align="center"> <input type="submit" value="Nytt&#13;&#10; Hostname &#13;&#10;Side" style="text-align:center;width:100px;height:80px;white-space:normal;"> </th>
+                  %= end
+                  %= form_for '/NewPrefix' => (method => 'GET') => begin
+                     <th id='col2' align="center"> <input type="submit" value="Nytt&#13;&#10; Prefix &#13;&#10;Side" style="text-align:center;width:100px;height:80px;"> </th>
+                  %= end
+                  %= form_for '/NewSubPrefix' => (method => 'GET') => begin
+                     <th id='col2' align="center"> <input type="submit" value="Nytt&#13;&#10; SubPrefix &#13;&#10;Side" style="text-align:center;width:100px;height:80px;"> </th>
+                  %= end
+                  
+                  %= form_for '/ReportHostname' => (method => 'GET') => begin
+                  <th id='col3' align="center"> <input type="submit" value="Hostname&#13;&#10; Rapport &#13;&#10;Side" style="text-align:center;width:100px;height:80px;"> </th>
+                  %= end
+                  
+                  %= form_for '/ReportPrefix' => (method => 'GET') => begin
+                  <th id='col4' align="center"; height="200px";> <input type="submit" value="Prefix&#13;&#10; Rapport &#13;&#10;Side" style="text-align:center;width:100px;height:80px;"> </th>
+                  %= end
+               </tr>
+               
+               <tr id='row3B'>
+               </tr>
+               
+               <tr id='row3'>
+                  %= form_for '/addcircuitid' => (method => 'GET') => begin
+                     <th id='col1' align="center"> <input type="submit" value="Legg til&#13;&#10; Sambands Nr &#13;&#10;til Hostname" style="text-align:center;width:100px;height:80px;"> </th>
+                  %= end
+                  
+                  %= form_for '/DeleteHostnameEntry' => (method => 'GET') => begin
+                     <th id='col1' align="center"> <input type="submit" value="Slett&#13;&#10; Sambands Nr &#13;&#10;Hostname" style="text-align:center;width:100px;height:80px;"> </th>
+                  %= end
+
+                  %= form_for '/DeletePrefixEntry' => (method => 'GET') => begin
+                     <th id='col1' align="center"> <input type="submit" value="Slett&#13;&#10; Prefix &#13;&#10; " style="text-align:center;width:100px;height:80px;"> </th>
+                  %= end
+
+                  %= form_for '/DeleteSubPrefixEntry' => (method => 'GET') => begin
+                     <th id='col1' align="center"> <input type="submit" value="Slett&#13;&#10; SubPrefix &#13;&#10; " style="text-align:center;width:100px;height:80px;"> </th>
+                  %= end
+
+               </tr>
+               
+               <tr id='rowLast' height="50px">
+                  <td>                         </td>
+                  <td>                         </td>
+                  <td>                         </td>
+                  <td>                         </td>
+                  <td>                         </td>
+               </tr>   
+   % end
+
+   % content LowerArea   => begin
+            <tr id='row19'> <!-- row 19 -->
+            </tr>
+
+            <tr id='row20'> <!-- row 20 -->
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            
+            <tr> <!-- row 21 -->
+            </tr>
+   % end
+
+   % content BottomCodeSection     => begin
+   % end
+
+

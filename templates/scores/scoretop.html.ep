@@ -1,0 +1,18 @@
+% layout 'default';
+% title   'ScoreTop';
+% extends 'parent';
+
+   % content TitleLine   => begin
+      <link rel="shortcut icon" href="<%= url_for '/static/favicon.jpg' %>"> 
+      <title><%=  $StartNoLabel %></title>
+   % end
+
+% content Select     => begin
+	% if ($ScoresTemplate == 1) {
+		  %= include 'scores/scoreswait'
+	% } elsif ($ScoresTemplate == 2) {
+		  %= include 'scores/scores'
+	% } elsif ($ScoresTemplate == 3) {
+		  %= include 'scores/myscores'
+	% } 
+% end   

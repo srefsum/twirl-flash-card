@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+   <head>
+<% my $TitleLine = begin %>
+   <title>Twirl for fun</title>
+<% end %>
+
+
+<% my $TableLine = begin %>
+         <tr> <!-- row 5 -->
+            <td colspan=5>
+               <hr align="center" width="95%" >         
+            </td>
+         </tr>          
+         
+         <tr id='row6'> <!-- row 6 -->
+            <td colspan=5>  </td>
+         </tr> 
+<% end %>
+
+<% my $LogoImage = begin %>
+         <tr>
+            <th> <%=   $JudgeId . " : " . $JudgeName  %></th>
+            <th></th>
+            <th><%=   $ClassTitle . " : " . $ClassName  %> </th>
+            <th></th>
+            <th>
+               <img src="/static/Drill_logo.jpg"  width="30%" alt="Twirler" />
+			</th>
+         </tr>
+         
+         <tr id='row1'>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+         </tr>
+         
+         <tr id='row2'>
+            <th id='col1' > </th>
+            <th id='col2' > </th>
+            <th id='col3' > </th>
+            <th id='col4' > </th>
+            <th id='col5' > </th>
+         </tr>
+<% end %>
+
+      <link rel="stylesheet" href="/static/jquery-ui.css">
+      <style type="text/css">
+        td,input        { font-family  : Arial, Helvetica, sans-serif; }
+        #VersionField   { font-family  : Arial, Helvetica, sans-serif; color: #aaaaaa; }
+        
+         % if ( $StatusType eq 'Info' ) {
+            #StatusType     { font-family  : Arial, Helvetica, sans-serif; color:blue; }
+         % } elsif ( $StatusType eq 'Advarsel' ) {
+            #StatusType     { font-family  : Arial, Helvetica, sans-serif; color:red; }
+            #StatusMessage  { font-family  : Arial, Helvetica, sans-serif; color:red; }
+         % } elsif ( $StatusType eq 'Feil' ) {
+            #StatusType     { font-family  : Arial, Helvetica, sans-serif; color:red; font-weight  :  bold; }
+            #StatusMessage  { font-family  : Arial, Helvetica, sans-serif; color:red; font-weight  :  bold; }
+         % } 
+        
+        #backgroundTable {  align  : center;
+                            border : 1;
+                            width  : 95%; 
+                          }
+                          
+        #row2     { height       :   8px; }
+        #row6     { height       :  10px; }
+        #row10    { height       :  10px; }
+        #row14    { height       :  10px; }
+        #row16    { height       :  10px; }
+        #IPOutput { font-size    :    110%; 
+                    font-weight  :  bold; 
+                    border-width : thick 1px;
+                    border       : thin solid darkgrey;
+                  }
+        #row20    { height       : 10px; }
+        #col1     { width        :  25%; }
+        #col2     { width        :   2%; }  
+        #col3     { width        :  25%; }  
+        #col4     { width        :   3%; }  
+        #col5     { width        :  14%; }  
+        #subprefixselect { width        :  90px; }
+
+         .tooltip {
+            #border-bottom             : 1px dotted #000000; 
+            color                      : #000000; 
+            outline                    : none;
+            #cursor                    : help; 
+            text-decoration            : none;
+            position                   : relative;
+         }
+         .tooltip span {
+            margin-left                : -999em;
+            position                   : absolute;
+         }
+         .tooltip:hover span {
+            transition-delay           : 0.7s;
+            border-radius              : 5px 5px; -moz-border-radius: 7px; 
+            -webkit-border-radius      : 7px; 
+            box-shadow                 : 5px 5px 5px rgba(0, 0, 0, 0.1);   
+            -webkit-box-shadow         : 5px 5px     rgba(0, 0, 0, 0.15); 
+            -moz-box-shadow            : 5px 5px     rgba(0, 0, 0, 0.15);
+            font-family                : Calibri, Tahoma, Geneva, sans-serif;
+            position                   : absolute; 
+            left                       : 1em; 
+            top                        : 2em; 
+            z-index                    : 99;
+            margin-left                : 0; 
+            width                      : 250px;
+         }
+         .tooltip:hover img {
+            border                     : 0; 
+            margin                     : -10px 0 0 -55px;
+            float                      : left; 
+            position                   : absolute;
+         }
+         .tooltip:hover em {
+            font-family                : Candara, Tahoma, Geneva, sans-serif; 
+            font-size                  : 1.0em; 
+            font-weight                : bold;
+            display                    : block; 
+            padding                    : 0.2em 0 0.6em 0;
+         }
+
+         #table-wrapper {
+           position:relative;
+           width:95%;
+         }
+         #table-scroll {
+         #  height:150px;
+         #  height:300px;
+           overflow:auto;    
+           margin-top:20px;
+         }
+         #table-wrapper table {
+           width:100%;
+         }
+
+         #table-wrapper table * {
+           background:lightblue;
+           color:black;
+         }
+
+         #table-wrapper table thead th .text {
+           position:absolute;   
+           top:-20px;
+           z-index:1;
+           height:20px;
+          #  width:35%;
+           border:1px;
+         }
+
+         .classic       { padding: 0.8em 1em; }
+         .custom        { padding: 0.5em 0.8em 0.8em 2em; }
+         * html a:hover { background: transparent; }
+         .classic       { background: #FFFFAA; border: 2px solid #FFAD33; }
+         .critical      { background: #FFCCAA; border: 2px solid #FF3334;  }
+         .help          { background: #9FDAEE; border: 2px solid #2BB0D7;  }
+         .info          { background: #9FDAEE; border: 2px solid #2BB0D7;  }
+         .warning       { background: #FFFFAA; border: 2px solid #FFAD33; }
+		 
+		div.traffic
+		{
+			text-align: left; 
+			text-indent: 0px; 
+			padding: 0px 0px 0px 0px; 
+			margin: 0px 0px 0px 0px;
+		}
+		td.td
+		{
+					 border-radius: 5px;
+					 border-width : 2px; 
+					 background-color: #ee2222;  /* red    */
+					 /*  background-color: #22ee22;  /* green  */
+					 /*  background-color: #eeff22;      /* yellow */
+					 text-align:center;
+					 border-color: #000000;
+					 width:20px;
+
+		}
+		td.bl
+		{
+					 border-style:none;
+					 border-color: #ffffff;
+					 border-width : 1px; 
+					 background-color: #ffffff
+					 text-align:center;
+					 width:10px;
+		}    
+	   table.mytable
+		{
+					 /* border-radius: 5px; */
+					 border-width : 1px; 
+					 background-color: #ffffff
+					 text-align:center;
+					 border-color: #ffffff;
+
+		}        
+		 
+      </style>
+      
+      %= content TitleLine     => begin
+         <title>Twirl for Fun</title>
+      % end
+      <script src="/static/jquery.min.js"></script> 
+      <script src="/static/jquery-ui.js"></script>
+      <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+      <!-- <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
+   </head>
+
+   <body >
+      %= content TopCodeSection     => begin
+      % end
+
+       % if ( $topPage == 1 ) {
+	  <table id='backgroundTable'
+		 style="background-image:URL('/static/SideLogoWave6_50.gif');background-repeat:no-repeat;background-position:left;" >	  
+      % } else {
+	  <table id='backgroundTable' style="background-image:URL('/static/LogoSide.jpg');background-repeat:no-repeat;background-position: left;" >
+      % }
+         <tr> 
+            <td>
+               <table align="center" border="0px" width="85%"> 
+
+                 <%= $LogoImage->() %>
+         <%= $TableLine->() %>
+         
+         %= content TopArea     => begin
+                  <tr> <!-- row 3 -->
+                  </tr>          
+                  <tr> <!-- row 4 -->
+                  </tr>  
+                  <tr> <!-- row 5 -->
+                  </tr>  
+         % end
+
+         <%= $TableLine->() %>
+         
+         %= content CentralArea => begin
+                  <tr> <!-- row 7 -->
+                  </tr>
+
+                  <tr> <!-- row 7B -->
+                  </tr>
+                  
+                  <tr> <!-- row 8 -->
+                  </tr>    
+                  
+                  <tr> <!-- row 9 -->
+                  </tr>          
+
+                  <tr> <!-- row 9 -->
+                  </tr>          
+                  
+                  <tr id='row10'> <!-- row 10 -->          
+                  </tr>
+                  
+                  <tr> <!-- row 11 -->
+                  </tr>          
+
+                  <tr id='row11B'> <!-- row 11B -->          
+                  </tr>
+                  
+                  <tr id='row12'> <!-- row 12 -->          
+                  </tr>
+
+                  <tr> <!-- row 13A -->
+                  </tr>          
+
+                  <tr id='row13B'> <!-- row 13B -->
+                  </tr>
+                  
+                  <tr> <!-- row 13C -->
+                  </tr>          
+                  
+                  
+                  <tr id='row14'> <!-- row 14 -->
+                  </tr>
+                  
+                  <tr>  <!-- row 15 -->         
+                  </tr>
+
+                  <tr id='row16'>  <!-- row 16 -->
+                  </tr>
+                  
+                  <tr id='row16B'>  <!-- row 16 -->
+                  </tr>
+                  
+                  <tr>  <!-- row 17A -->
+                  </tr> 
+
+                  <tr>  <!-- row 17B -->
+                  </tr> 
+         % end
+
+         <%= $TableLine->() %>
+         
+         %= content LowerArea   => begin
+                  <tr id='row19'> <!-- row 19 -->
+                  </tr>
+
+                  <tr id='row20'> <!-- row 20 -->
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                  </tr>
+                  
+                  <tr> <!-- row 21 -->
+                  </tr>
+         % end
+                  <tr> <!-- row 22 -->
+                     <td align='left'>
+				   % if ( $logout == 1 ) {
+					   %= form_for '/logout' => {format => 'txt'} => (method => 'GET')  => begin
+						  <%= submit_button  $LogoutLabel  , id => 'Logout' %>
+					   %= end
+					% }
+					 </td>
+                     <td>
+				   % if ( $user == 1 ) {
+					   %= form_for '/newpassword' => {format => 'txt'} => (method => 'GET')  => begin
+						  <%= submit_button $UserPageLabel   , id => 'user' %>
+					   %= end
+					% }					
+					 </td>
+                     <td></td>
+                     <td align='right'>
+                        % if ( $tilbake == 1 ) {
+                           %= form_for '/WelcomeIn' => {format => 'txt'} => (method => 'GET')  => begin
+                              <%= submit_button  $HomeLabel  , id => 'Home' %>
+                           %= end
+                        % }
+                     </td>
+                   </tr>
+                  
+                  <tr> <!-- row 23 -->
+                     <td id='StatusType' align=left >
+                        
+                        % if ( $StatusType ne '' ) {
+                        % if ( $StatusType eq 'Info' ) {
+                           <img src="/static/Info.png" alt="?" height="16" width="16" />                     
+                        % } elsif ( $StatusType eq 'Advarsel' ) {
+                           <img src="/static/Warning.png" alt="A" height="16" width="16" />                     
+                        % } elsif ( $StatusType eq 'Feil') {
+                           <img src="/static/Critical.png" alt="F" height="16" width="16" />                     
+                        % }
+                           <%= $StatusType %>
+                        % }
+                     </td >
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td id='VersionField' align=right > <%= $VersionLabel %> : <%= $version %> </td>
+                  </tr>            
+
+                  <tr> <!-- row 24 -->  
+                     <td id='StatusMessage' colspan=3 align=left >  
+                        % if ( $StatusMessage ne '' ) {
+                           <%= $StatusMessage %>
+                        % }
+                     </td>
+                  </tr>   
+
+                  
+               </table> 
+            </td>
+         </tr>    
+      </table> 
+      %= content BottomCodeSection     => begin
+      % end
+   </body>
+</html>

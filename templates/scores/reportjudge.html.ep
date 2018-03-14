@@ -1,0 +1,121 @@
+@@ reportjudge.html.ep
+% extends 'parent';
+
+   % content TopArea     => begin
+               <tr> <!-- row 3 -->
+                  %= form_for '/searchReportEvent' => {format => 'txt'} => (method => 'POST') => begin
+                  <td align=right >
+                      <%=  'Event ID'%>
+                  </td> 
+                  <td></td>
+                  <td align=left>
+                     <%= text_field 'CircuitId' , value=> $EventId  , id=> 'CircuitId' %>
+                  </td>
+                  <td>
+                        <%= submit_button 'Søk Sambands Nr', id => 'CircuitSearch' %>
+                  </td>
+                  <td></td>
+                  %= end
+               </tr>          
+               <tr> <!-- row 4 -->
+               </tr>  
+               
+               
+   % end               
+
+   % content CentralArea => begin               
+               
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+
+               <tr id='row10'> <!-- row 10 -->          
+                  <td colspan=5 align="center" width="90%">
+                     <div id="table-wrapper">
+                        <div id="table-scroll">    
+                        <table id="prefix_table">
+                           <thead id="tableHead">
+                           <tr>
+                              <th class="nr">Nr.</th>
+                              <th class="Pref">StartNo</th>
+                              <th class="Pref">Athlete</th>
+                              <th class="Pref">Sect 1</th>
+                              <th class="Pref">Sect 2</th>
+                              <th class="Pref">Sect 3</th>
+                              <th class="Pref">Sect 4</th>
+                              <th class="Pref">Sect 5</th>
+                              <th class="Pref">TBD</th>
+                              <th class="Pref">D</th>
+                              <th class="Pref">TAD</th>
+                           </tr>
+                           </thead>
+                           <tbody id="tableBody">
+                           % my $i = 1;
+                           % foreach my $athlete (@$sambansdidlist) {
+                              % my %x = %{$athlete};
+                              <tr>
+                              <td align="center" ><%= $i %> </td>
+                              <td align="right" > <%= $x{StartNo} %> </td>
+                              <td align="left" >  <%= $x{Athlete} %> </td>
+                              <td align="right" > <%= $x{Section_1} %> </td>
+                              <td align="right" > <%= $x{Section_2} %> </td>
+                              <td align="right" > <%= $x{Section_3} %> </td>
+                              <td align="right" > <%= $x{Section_4} %> </td>
+                              <td align="right" > <%= $x{Section_5} %> </td>
+                              <td align="right" > <%= $x{Section_TBD} %> </td>
+                              <td align="right" > <%= $x{Section_D} %> </td>
+                              <td align="right" > <%= $x{Section_TAD} %> </td>
+                              </tr>
+                              % $i++
+                           % }               
+                           </tbody>
+                        </table>
+                        </div>
+                     </div>
+                  </td>   
+               </tr>
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+                     % if ($request ne '') {
+                     %= form_for '/download' => {format => 'txt'} => (method => 'POST') => begin
+                        <%= submit_button 'Download Excel', id => 'Download'  %>
+                        <%=  hidden_field Request => $request, id => 'Request'  %>   
+                     %= end
+                     % }
+                  </td>
+                  <td>
+                     % if ($request ne '') {
+                     %= form_for '/downloadcsv' => {format => 'txt'} => (method => 'POST') => begin
+                        <%= submit_button 'Download CSV', id => 'Download'  %>
+                        <%=  hidden_field Request => $request, id => 'Request'  %>   
+                     %= end                                       
+                     % }
+                  </td>
+               </tr>
+
+   % end               
+
+   % content LowerArea   => begin
+               <tr id='row21'> <!-- row 21 -->
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+                     %= form_for '/SlettSkjema' => {format => 'txt'} => (method => 'GET') => begin
+                        <%= submit_button 'Slett Skjema', id => 'SlettSkjema'  %>
+                        <%=  hidden_field Skjema => '/ReportHostname', id => 'Skjema'  %>   
+                     %= end
+                  </td>
+                  <td></td>
+               </tr>
+   % end
+
+   % content BottomCodeSection     => begin
+   % end   

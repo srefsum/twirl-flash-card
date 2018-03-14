@@ -1,0 +1,91 @@
+@@ form.html.ep
+% extends 'parent';
+
+   % content TitleLine   => begin
+      <link rel="shortcut icon" href="<%= url_for '/static/favicon.jpg' %>"> 
+      <title>Flash Card</title>
+   % end
+
+
+   % content TopCodeSection     => begin
+      <style type="text/css">            
+         input[type="submit"] {
+            text-align:center;
+            width:100px;
+            height:40px;
+            white-space:normal;
+         }         
+        
+      </style>
+   % end
+
+   % content TopArea     => begin
+            <tr> <!-- row 3 -->
+            </tr>          
+            <tr> <!-- row 4 -->
+            </tr>  
+   % end
+
+   % content CentralArea => begin
+               <tr id='row3'>
+                     <th id='col1' align="center"> </th>
+                     <th id='col2' align="center"> 
+                        % if ( $NewPassword == 0 ) {
+						<%= $WelcomeStr %> <br>
+
+						<form action="/login" method="post">
+						% } else {
+						<%= $PasswdChgStr %>  <br>
+						<form action="/newpassword" method="post">
+						% }
+						<table>
+						<tr> <td> <%= $UserLabel %>     </td>  <td> <input type="text" name="id" /> </td> </tr>
+						<tr> <td> <%= $PasswordLabel %> </td>  <td> <input type="password" name="pw" />
+						% if ( $NewPassword == 1 ) {
+						<tr> <td> <%= $NewPw1Label %></td>  <td> <input type="password" name="pw_new_1" />
+						<tr> <td> <%= $NewPw2Label %> </td>  <td> <input type="password" name="pw_new_2" />
+						% }
+						<input type="hidden" name="slug" value="yes"></td> </tr>
+						
+						</table>
+
+                        % if ( $NewPassword == 0 ) {
+						<%= submit_button  $LoginLabel  , id => 'mysubmit' %>
+						% } else {
+						<input type="submit" name="mysubmit" value= <%= "$PwChgLabel" %> />
+						% }
+
+						</form>
+					 </th>
+                     <th id='col3' align="center"> </th>
+
+              <tr id='rowLast' height="50px">
+                  <td>                         </td>
+                  <td>                         </td>
+                  <td>                         </td>
+                  <td>                         </td>
+                  <td>                         </td>
+               </tr>   
+   % end
+
+   % content LowerArea   => begin
+            <tr id='row19'> <!-- row 19 -->
+            </tr>
+
+            <tr id='row20'> <!-- row 20 -->
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            
+            <tr> <!-- row 21 -->
+            </tr>
+   % end
+
+   % content BottomCodeSection     => begin
+   % end
+
+
+

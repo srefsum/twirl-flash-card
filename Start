@@ -1,0 +1,2 @@
+sudo  morbo -l https://192.168.1.104:443 ./script/my_app
+

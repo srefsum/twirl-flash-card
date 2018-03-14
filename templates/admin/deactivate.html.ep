@@ -1,0 +1,336 @@
+@@ deactivate.html.ep
+% extends 'parent';
+
+   % content TopArea     => begin
+               <tr> <!-- row 3 -->
+               </tr>          
+               <tr> <!-- row 4 -->
+               </tr>  
+               <tr> <!-- row 4 -->
+               </tr>  
+               <tr> <!-- row 4 -->
+               
+   % end               
+
+   % content CentralArea => begin               
+               
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+
+               <tr id='row10'> <!-- row 10 -->          
+                  <td colspan=6 align="center" width="100%">
+                     <div id="table-wrapper">
+                        <div id="table-scroll">    
+                        <table id="AthleteTable">
+                           <thead id="tableHead">
+                           <tr>
+                              <th class="Pref" width="4%"  >Event No</th>
+                              <th class="Pref" width="4%"  >StartNo</th>
+                              <th class="Pref" width="4%"  >Id</th>
+                              <th class="Pref" width="36%" >Athlete</th>
+                              <th class="Pref" width="20%" >Category</th>
+                              <th class="Pref" width="4%"  >Lane</th>
+							  % if ($Activate == 1) {
+								  <th class="Pref" width="5%"  >Not Yet</th>
+								  <th class="Pref" width="5%"  >Withdrawn</th>
+								  <th class="Pref" width="5%"  >No Show</th>
+								  <th class="Pref" width="5%"  >OnFloor</th>
+							  % } else {
+								  <th class="Pref" width="5%"  >Unlocked</th>
+								  <th class="Pref" width="5%"  >Locked</th>
+							  %}
+                           </tr>
+                           </thead>
+                           <tbody id="tableBody">
+                           % for (my $i = 0; $i < scalar @$AthleteActive;$i++) {
+						   %  my $CheckId = 'CheckStateNr' . $i;
+						   %  my $Traffic = 'traffic_' . $i;
+                             <tr id= <%= $CheckId %> > 
+                              <td align="center" id="EventsId">     <%= $AthleteActive->[$i]{EventsId} %> </td>  
+                              <td align="center" id="StartNo">      <%= $AthleteActive->[$i]{StartNo} %> </td>
+                              <td align="center" id="AthletesId">   <%= $AthleteActive->[$i]{AthletesId} %> </td>
+                              <td align="left"   id="AthletesName"> <%= $AthleteActive->[$i]{AthletesName} %> </td>
+                              <td align="left"   id="Category">     <%= $AthleteActive->[$i]{Category} . " " . 
+							                           $AthleteActive->[$i]{Division}. " " . 
+													   $AthleteActive->[$i]{Level} %>
+							  <div id=<%=$Traffic%> > </div>  </td>
+                              <td align="center" id="Lane">         <%= $AthleteActive->[$i]{Lane} %> </td>
+							  <div id= <%= $CheckId %> >
+							  % if ($Activate == 1) {
+								  <td align="center" >   
+										<%= radio_button $CheckId => 1, checked => $AthleteActive->[$i]{Completed},id => "NotYet" %>
+								  </td>
+								  <td align="center" >  
+										<%= radio_button $CheckId => 1,id => "Withdrawn" %>
+								  </td>
+								  <td align="center" >  
+										<%= radio_button $CheckId => 1,id => "NoShow" %>
+								  </td>
+								  <td align="center" >  
+										<%= radio_button $CheckId => 1,id => "OnFloor" %>
+								  </td>
+							  % } else {
+								  <td align="center" >   
+										<%= radio_button $CheckId => 1, checked => $AthleteActive->[$i]{Completed},id => "Unlocked" %>
+								  </td>
+								  <td align="center" >  
+										<%= radio_button $CheckId => 1,id => "Locked" %>
+								  </td>
+							  
+							  % }
+							  </div>
+                              </tr>
+                           % }               
+                           </tbody>
+                        </table>
+                        </div>
+                     </div>
+                  </td>   
+               </tr>
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+					%= form_for '/admin' => {format => 'txt'} => (method => 'POST') => begin
+						<%= hidden_field SetStateforEvents => $EnContent , id => 'SetStateforEvents'  %> 						
+						<%= hidden_field Activate => $Activate , id => 'SetStateforEvents'  %> 						
+                        <%= submit_button "$SubmitButtLabl", id => 'admin', onclick => "onsubmitSetStateforAthletes();" %>
+                     %= end				  
+                  </td>
+                  <td>
+   
+                  </td>
+               </tr>
+
+   % end               
+
+   % content LowerArea   => begin
+               <tr id='row21'> <!-- row 21 -->
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+ 
+                  </td>
+                  <td></td>
+               </tr>
+   % end
+
+   % content BottomCodeSection     => begin
+		<script language="javascript" type="text/javascript">
+		 var VenueId = <%= $VenueId %>;
+	% if ($Activate == 0) {
+			var JudgesForEach    = <%= $EventJudgesCnt %>; // number of Judges
+			var JudgesUids       = 
+			%== $EventJudgesUid;   
+			var JudgesIds       = 
+			%== $EventJudgesId
+			;   
+			var count    		 =  JudgesForEach.length;
+			var wide     = 20;
+			var narrow   = 10;
+			var variable = 2;
+			var base     = 8;
+
+		console.log("WebSocket message: " + window.location.port);
+		console.log("WebSocket message: " + window.location.protocol);
+		var ws;
+		var url;
+		var port = window.location.port;
+		if (port != '') {port = ":" + port;}
+		if (window.location.protocol !== 'https:') {
+			url =  "ws://"+location.hostname+port+"/ws/admin_score_status";
+		} 
+		else {
+				url =  "wss://"+location.hostname+port+"/ws/admin_score_status";
+		}		
+		console.log("WebSocket message: " + url);
+		if ("WebSocket" in window) {
+			ws = new WebSocket(url);
+		} else if ("MozWebSocket" in window) {
+			ws = new MozWebSocket(url);
+		}		 
+		console.log("WebSocket message: " + url);
+     % }		
+
+
+		
+         function onsubmitSetStateforAthletes() {
+			var table = document.getElementById("AthleteTable");
+			var RadioId = '';
+			var Events        = [];
+			var jsonReqObject = {};
+			jsonReqObject.Events = Events;
+			
+			for (var i = 0, row; row = table.rows[i]; i++) {
+				var Event         = {};
+				Event.VenueId = VenueId;  
+			   //iterate through rows
+			   //rows would be accessed using the "row" variable assigned in the for loop
+			   console.log(row.id);
+			   RadioId = row.id; 
+			   for (var j = 0, col; col = row.cells[j]; j++) {
+				 //iterate through columns
+				 //columns would be accessed using the "col" variable assigned in the for loop
+				 console.log(col.innerText);
+				 if (col.id === 'Lane')       { Event.Lane     = col.innerText; }
+				 if (col.id === 'EventsId')   { Event.EventsId = col.innerText; }
+				 if (col.id === 'AthletesId') { Event.AthletesId  = col.innerText; }
+				 if (col.id === 'StartNo')    { Event.StartNo  = col.innerText; }
+			   }  
+				var radios = document.getElementsByName(RadioId);
+				for (var r = 0, length = radios.length; r < length; r++) {
+					if (radios[r].checked)
+					{
+						// do whatever you want with the checked radio
+						Event.State = radios[r].id;
+						// only one radio can be logically checked, don't check the rest
+						break;
+					}
+				}
+				if (Event.Lane) {
+				   jsonReqObject.Events[i] = Event;
+				}
+			}		 
+			document.getElementById("SetStateforEvents").value = JSON.stringify(jsonReqObject);
+			return true;
+		 };
+	% if ($Activate == 0) {
+		function TableWidth (cnt) {
+			var width = (cnt*wide)+((cnt-1)*narrow) + (variable * (cnt-2)) + base; 
+			return width;
+		}
+
+		function tableCreate() {
+		    for (var ji = 0; ji < JudgesForEach.length; ji++) {
+				var trafficId = 'traffic_' + ji;
+			var body = document.getElementById(trafficId);
+			var tbl = document.createElement('table');
+			var mywidth = TableWidth(JudgesForEach[ji]);
+			mywidth += "px";
+			tbl.style.width = mywidth;
+			tbl.setAttribute('class', 'mytable');
+			// tbl.setAttribute('width', mywidth);
+			var tbdy = document.createElement('tbody');
+			for (var i = 0; i < 1; i++) {
+				var tr = document.createElement('tr');
+				for (var j = 0; j < JudgesForEach[ji]; j++) {
+						if ( j > 0 ) {
+							var bl = document.createElement('td');
+							var br = document.createElement('br');
+							//bl.appendChild(document.createTextNode('\u0020'));
+							bl.setAttribute('class', 'bl');
+							bl.appendChild(br);
+							tr.appendChild(bl);
+						}
+						var td = document.createElement('td');
+						var br = document.createElement('br');
+						var idStr = 'traffic_' + JudgesUids[(ji * JudgesForEach[ji])+j];
+						td.appendChild(document.createTextNode(JudgesUids[(ji * JudgesForEach[ji])+j]));
+						td.setAttribute('id', idStr);
+						td.setAttribute('class', 'td');
+						td.appendChild(br);
+						tr.appendChild(td);
+				}
+				tbdy.appendChild(tr);
+			}
+			tbl.appendChild(tbdy);
+			body.appendChild(tbl);
+			}
+		}
+
+		function trafficColor(val) {
+			//var array_color = ['red','red', 'red', 'yellow','yellow','green','green'];       
+			var array_color = [	'#FF0000','#FF6347', '#FF8C00', '#FFD700','#FFFF00', '#32CD32','#006400'];       
+			var str = 'traffic_';
+			var color;
+			console.log(val.judges.length);
+			for (var i = 0; i < val.judges.length; i++) {
+				str = 'traffic_' + val.judges[i].uid;
+			    if (val.judges[i].scored === 1) {
+					color = array_color[6];
+				} else {
+					color = array_color[0];
+				}
+				console.log(array_color[color]);
+				var x = document.getElementById(str);
+				x.style.backgroundColor = color;
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+		   // your code here
+		   tableCreate();
+		}, false);
+
+	function GetInfoOnAthletes() {
+		var table = document.getElementById("AthleteTable");
+		var Events        = [];
+		var jsonReqObject = {};
+		jsonReqObject.Events = Events;
+
+		var r = 0;
+		for (var i = 0, row; row = table.rows[i]; i++) {
+			var Event         = {};
+			Event.VenueId = VenueId;  
+			for (var j = 0, col; col = row.cells[j]; j++) {
+
+				if (col.id === 'EventsId')   { Event.EventsId    = col.innerText; }
+				if (col.id === 'AthletesId') { Event.AthletesId  = col.innerText; }
+				if (col.id === 'StartNo')    { Event.StartNo     = col.innerText; }
+			}  
+			if (Event.StartNo) {
+				jsonReqObject.Events[r++] = Event;
+			}
+		}		 
+		return jsonReqObject;
+	};
+		
+     function CreateTweet( id) {
+			var tweet = {
+				  tweet_id : id,
+						VenueId       : encodeURI( <%= $VenueId %> ),
+						Athletes      : GetInfoOnAthletes(),
+						Judges        : JudgesIds
+					 }; 
+			  return tweet;
+      }		
+		
+      function SendSocketMessage(ws,x) {
+         if (ws.readyState == 1) {
+            ws.send(x);
+         } else {
+            console.log("WebSocket status : ", ws.readyState);
+            console.log("WebSocket message: ", x);
+         }
+      }		
+
+     // Incoming messages
+		ws.onmessage = function(event) {
+			 var obj = JSON.parse(event.data);
+			 if (obj.hasOwnProperty('Judges')) {
+				 for (i = 0; i < obj.Judges.length; i++) { 
+					trafficColor( obj.Judges[i]); 
+				  }
+			 }
+        };
+	  
+        // Outgoing messages
+        window.setInterval(function() {
+		  var new_tweets = CreateTweet('#keep');
+          var x = JSON.stringify(new_tweets);
+          SendSocketMessage(ws,x);
+         }, 800);
+ 
+    % }  
+
+	 
+
+      </script>   	   
+   % end   

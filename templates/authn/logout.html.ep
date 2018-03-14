@@ -1,0 +1,48 @@
+@@ logout.html.ep
+% extends 'parent';
+
+   % content TitleLine   => begin
+      <link rel="shortcut icon" href="<%= url_for '/static/favicon.jpg' %>"> 
+      <title>Flash Card</title>
+   % end
+
+
+   % content TopCodeSection     => begin
+      <style type="text/css">            
+         input[type="submit"] {
+            text-align:center;
+            width:100px;
+            height:80px;
+            white-space:normal;
+         }         
+        
+      </style>
+   % end
+
+   % content TopArea     => begin
+            <tr> <!-- row 3 -->
+            </tr>          
+            <tr> <!-- row 4 -->
+            </tr>  
+   % end
+
+   % content CentralArea => begin
+               <tr id='row3'>
+                     <th id='col1'  align="center"> 
+					 <img src="/static/SystemDiagram.jpg" alt="Smiley face" >
+					 </th>
+               </tr>
+               %= end
+               
+               <tr id='rowLast' height="50px">
+                  <td>                         </td>
+               </tr>   
+   % end
+  % content BottomCodeSection     => begin
+    <script language="javascript" type="text/javascript">
+		var count    = 5; 
+        window.setInterval(function() {
+		 
+			location.reload(1);
+         }, 5000);
+   </script>

@@ -1,0 +1,131 @@
+@@ WelcomeIn.html.ep
+% extends 'parent';
+
+   % content TitleLine   => begin
+      <link rel="shortcut icon" href="<%= url_for '/static/favicon.jpg' %>"> 
+      <title>Flash Card</title>
+   % end
+
+
+   % content TopCodeSection     => begin
+      <style type="text/css">            
+         input[type="submit"] {
+            text-align:center;
+            width:100px;
+            height:80px;
+            white-space:normal;
+         }         
+        
+      </style>
+   % end
+
+   % content TopArea     => begin
+            <tr> <!-- row 3 -->
+            </tr>          
+            <tr> <!-- row 4 -->
+            </tr>  
+   % end
+
+   % content CentralArea => begin
+               <tr id='row3'>
+                     <th id='col1' align="center"> </th>
+                     <th id='col2' align="center"> </th>
+
+    			  %= form_for '/Scores' => (method => 'GET') => begin
+                  <th id='col4' colspan=2 align="right"> 
+				  <input type="submit" name="scores" value="<%=$ScoreLbl%>"     style="text-align:center;width:100px;height:80px;"> 
+				  <input type="submit" name="myscores" value="<%=$MyScoreLbl%>" style="text-align:center;width:100px;height:80px;"> 
+				  </th>
+                  %= end
+                  <th id='col5'style="text-align:center;width:100px;height:80px;"> </th>  
+				  
+               </tr>
+               
+               <tr id='row3B'>
+               </tr>
+               
+               <tr id='row3'>
+                     <th id='col1' align="center"> </th>
+                     <th id='col2' align="center"> </th>
+                     
+                  %= form_for '/admin' => (method => 'GET') => begin
+                     <th id='col4' colspan=2 align="right"> 
+					 <input type="submit" name="activate_events"     value="<%=$ActvLbl%>" style="text-align:center;width:100px;height:80px;">
+					 <input type="submit" name="deactivate_events"   value="<%=$DeActvLbl%>" style="text-align:center;width:100px;height:80px;">
+					 <input type="submit" name="activate_athletes"   value="<%=$ActvAthLbl%>" style="text-align:center;width:100px;height:80px;">
+					 <input type="submit" name="deactivate_athletes" value="<%=$DeActvAthLbl%>" style="text-align:center;width:100px;height:80px;">
+					 </th>
+                  %= end
+                  <td id='col5'style="text-align:center;width:100px;height:80px;"> </td>  
+               </tr>
+
+			   <tr id='row3C'>
+               </tr>
+               
+               <tr id='row3'>
+                     <th id='col1' align="center"> </th>
+                     <th id='col2' align="center"> </th>
+                     
+ 
+                  %= form_for '/presenter' => (method => 'GET') => begin
+                     <th id='col4' colspan=2 align="right"> 
+					 <input type="submit" name="flash_cards"     value="<%=$FlashLbl%>" style="text-align:center;width:100px;height:80px;"> 
+					 <input type="submit" name="active_on_floor" value="<%=$PresntLbl%>" style="text-align:center;width:100px;height:80px;"> 
+					 </th>
+                  %= end
+                  <td id='col5'style="text-align:center;width:100px;height:80px;"> </td>  
+				  
+               </tr>
+
+               <tr id='row3'>
+                     <th id='col1' align="center"> </th>
+                     <th id='col2' align="center"> </th>
+                     
+ 
+                  %= form_for '/DeleteSubPrefixEntry' => (method => 'GET') => begin
+                     <th id='col4' colspan=2 align="right"> 
+					 <input type="submit" name="admin" value="<%=$AdminLbl%>" style="text-align:center;width:100px;height:80px;"> 
+					 </th>
+                  %= end
+                  <%# <td id='col4'style="text-align:center;width:100px;height:80px;"> </td>  %>
+                  <td id='col5'style="text-align:center;width:100px;height:80px;"> </td>  
+               </tr>
+ 
+               <tr id='rowLast' height="50px">
+                  <td>                         </td>
+                  <td>                         </td>
+                  <td>                         </td>
+                  <td>                         </td>
+                  <td>                         </td>
+               </tr>   
+   % end
+
+   % content LowerArea   => begin
+         <style type="text/css">            
+         input[type="submit"] {
+            text-align:center;
+            width:100px;
+            height:25px;
+            white-space:normal;
+         }         
+        
+      </style>
+            <tr id='row19'> <!-- row 19 -->
+            </tr>
+
+            <tr id='row20'> <!-- row 20 -->
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            
+            <tr> <!-- row 21 -->
+            </tr>
+   % end
+
+   % content BottomCodeSection     => begin
+   % end
+
+

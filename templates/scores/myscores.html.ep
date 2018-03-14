@@ -1,0 +1,105 @@
+% title  'MyScores';
+
+   % content TopArea     => begin
+               <tr> <!-- row 3 -->
+               </tr>          
+               <tr> <!-- row 4 -->
+               </tr>  
+               <tr> <!-- row 4 -->
+               </tr>  
+               <tr> <!-- row 4 -->
+   % end               
+
+   % content CentralArea => begin               
+               
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+
+               <tr id='row10'> <!-- row 10 -->          
+                  <td colspan=6 align="center" width="100%">
+                     <div id="table-wrapper">
+                        <div id="table-scroll">    
+                        <table id="athlete_table">
+                           <thead id="tableHead">
+                           <tr>
+                              <th class="Pref">StartNo</th>
+                              <th class="Pref">Athlete</th>
+                              <th class="Pref"> 
+								<table>
+								<tr>
+									<th class="Pref" align="right" width="13%"> 1</td>
+									<th class="Pref" align="right" width="13%"> 2</td>
+									<th class="Pref" align="right" width="13%"> 3</td>
+									<th class="Pref" align="right" width="13%"> 4</td>
+									<th class="Pref" align="right" width="13%"> 5</td>
+									<th class="Pref" align="right" width="13%"> D</td>
+									<th class="Pref" align="right" width="13%"> T</td>
+								</tr>
+								</table>
+							  </th>
+                           </tr>
+                           </thead>
+                           <tbody id="tableBody">
+                           % for (my $i = 0; $i < scalar @$AthleteActive;$i++) {
+                              <tr>
+                              <td align="right" >   <%= $AthleteActive->[$i]{StartNo} %> </td>
+                              <td align="left" >    <%= $AthleteActive->[$i]{AthletesName} %> </td>
+                              <td align="right" >    
+								<div>  
+									<table id="points_table">
+									<tr>
+									<td align="right" width="13%"> <%= $AthleteActive->[$i]{Section_1}  %></td>
+									<td align="right" width="13%"> <%= $AthleteActive->[$i]{Section_2}  %></td>
+									<td align="right" width="13%"> <%= $AthleteActive->[$i]{Section_3}  %></td>
+									<td align="right" width="13%"> <%= $AthleteActive->[$i]{Section_4}  %></td>
+									<td align="right" width="13%"> <%= $AthleteActive->[$i]{Section_5}  %></td>
+									<td align="right" width="13%"> -<%= $AthleteActive->[$i]{Deduction}  %></td>
+									<td align="right" width="13%"> <%= $AthleteActive->[$i]{Total}      %></td>
+									</tr>
+									</table>
+								</div> 
+							  </td>
+                              </tr>
+                           % }               
+                           </tbody>
+                        </table>
+                        </div>
+                     </div>
+                  </td>   
+               </tr>
+
+               <tr id='row10'> <!-- row 10 -->          
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+                  </td>
+                  <td>
+                  </td>
+               </tr>
+			   
+	% end               
+
+    % content LowerArea   => begin
+               <tr id='row21'> <!-- row 21 -->
+                  <td> 
+				  <div id="traffic">  
+				  
+				  </div>				  
+				  </td>
+                  <td></td>
+                  <td></td>
+                  <td align=right>
+                   </td>
+                  <td align=right>
+                  </td>
+               </tr>
+   % end
+
+   % content BottomCodeSection     => begin
+   % end   

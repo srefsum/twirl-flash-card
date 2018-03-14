@@ -1,0 +1,245 @@
+<style>
+body, html {
+    height: 100%;
+    width: 100%;
+	align:center;    
+}
+
+table.flash_outer, td.flash_outer, th.flash_outer {
+    width: 95%;
+    height: 90%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+tr.flash_outer_row1{
+    width: 95%;
+    height: 45%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+tr.flash_outer_row2{
+    width: 95%;
+    height: 5%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+tr.flash_outer_row3{
+    width: 95%;
+    height: 45%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+tr.flash_outer_row4{
+    width: 95%;
+    height: 5%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+table.flash_inner_athletes{
+    width: 100%;
+    height: 100%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+table.flash_inner_athlete_name{
+    font-size: 7.25vw;
+    width: 100%;
+    height: 100%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+td.flash_inner_athlete_startno{
+    width: 15%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+td.flash_inner_athlete_name{
+    width: 70%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+td.flash_inner_athlete_flag{
+    width: 15%;
+    text-align: center;
+    #background-color: WhiteSmoke;
+    background: radial-gradient(circle, white, white, silver, silver, white ,white);
+    border: 1px solid #F8F8F8;
+}
+
+table.flash_inner_category_origin{
+    width: 100%;
+    height: 100%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+td.flash_inner_category{
+	font-size: 4vw;
+    width: 70%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+td.flash_inner_origin{
+	font-size: 4vw;
+    width: 30%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+
+table.flash_inner_athlete_origin{
+    width: 100%;
+    height: 100%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+
+table.flash_inner_judges{
+    width: 100%;
+    height: 100%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+table.flash_judges{
+    width: 100%;
+    height: 100%;
+    font-size: 3vw;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+table.flash_points{
+    width: 100%;
+    height: 100%;
+    font-size: 5vw;    
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+td.flash_judges_cells{
+    width: 10%;
+    font-size: 3.5vw;
+    text-align: center;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+td.flash_points_cells{
+    width: 10%;
+    font-size: 5vw; 
+    font-weight: bold;
+    text-align: center;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+
+
+table.flash_inner_logo{
+    width: 100%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+td.flash_inner_cell1{
+    width: 30%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+td.flash_inner_cell2{
+    width: 40%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+td.flash_inner_cell3{
+    width: 30%;
+    #background-color: powderblue;
+    #border: 1px solid black;
+}
+
+
+
+</style>
+</head>
+<body align="center">
+<table align="center" class="flash_outer">
+  <tr class="flash_outer_row1">
+    <th colspan="7">
+        <table class="flash_inner_athletes">
+            <tr>
+                <td>
+                   <table class="flash_inner_athlete_name">
+                        <tr>
+                            <td class="flash_inner_athlete_startno"><%=$StartNo%></td> 
+                            <td class="flash_inner_athlete_name"><%=$AthletesName%></td> 
+                            <td class="flash_inner_athlete_flag"> <img  width="90%" src="/static/flags/<%=$OriginFlag%>"> </td> 
+                        </tr>
+                    </table>                    
+                </td> 
+            </tr>
+            <tr>
+                <td>
+                  <table class="flash_inner_category_origin">
+                        <tr>
+                            <td class="flash_inner_category"><%=$Category%></td> 
+                            <td class="flash_inner_origin"><%=$Origin%></td> 
+                        </tr>
+                    </table>                                    
+                </td> 
+            </tr>
+           
+        </table>    
+    </th>
+  </tr>
+  <tr class="flash_outer_row2">
+    <td colspan="7"></td>
+  </tr>
+  <tr class="flash_outer_row3">
+    <td colspan="7">
+        <table class="flash_inner_judges">
+            <tr>
+                <td>  
+                    <table class="flash_judges">
+                        <tr>
+							 % my $width = 100/ (scalar @$AthleteScores);
+							 % for (my $i = 0; $i < scalar @$AthleteScores;$i++) {
+                            <td class="flash_judges_cells"><%=$AthleteScores->[$i]{JudgesName}%><br>(<%=uc($AthleteScores->[$i]{iso})=%>) <img  width="<%=$width%>" src="/static/flags/<%=$AthleteScores->[$i]{JudgesFlag}%>"></td> 
+							 % }
+                        </tr>
+                        <tr>
+							% for (my $i = 0; $i < scalar @$AthleteScores;$i++) {
+                            <td class="flash_points_cells"><%=$AthleteScores->[$i]{Score}%></td> 
+							 % }
+                        </tr>
+                    </table>                
+                </td> 
+            </tr>
+           
+        </table>    
+    </td>
+  </tr>
+  <tr class="flash_outer_row4">
+    <td  colspan="7">
+        <table class="flash_inner_logo">
+            <tr>
+                <td class="flash_inner_cell1">  </td> 
+                <td class="flash_inner_cell2">  </td> 
+                <td class="flash_inner_cell3">  </td> 
+            </tr>
+        </table>
+    </td>
+  </tr>
+</table>
+
+</body>
