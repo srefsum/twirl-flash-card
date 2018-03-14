@@ -3,7 +3,7 @@ Flash card system for twirling competitions
 
 Standard LAMP application, with ubuntu/linux, apache, mysql, perl/mojolicious, javascript
 
-TODO list:
+#TODO list:
    
    ## Primary tasks
     2. Add project files
