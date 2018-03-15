@@ -12,9 +12,9 @@ Collect scores from judges and display the aggregate on a big screen using stand
 # TODO list:
    
    ## Primary tasks
-    1. - [x]Add project files
-    2. - [x]Remove unused files
-    3. - [x]Create mysql template
+    1. - [x] Add project files
+    2. - [x] Remove unused files
+    3. - [x] Create mysql template
     
    ## Develop (in no particular order)
     1. Add reorder 
