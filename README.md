@@ -9,6 +9,13 @@ Standard LAMP application, with ubuntu/linux, apache, mysql, perl/mojolicious, j
 # Purpose
 Collect scores from judges and display the aggregate on a big screen using standard web pages.
 
+# Status
+   Very alpha state, but proof of concept.
+   Can be used for simple demonstrations.
+
+# Licence 
+   GLP 3.0
+   
 # TODO list:
    
    ## Primary tasks
