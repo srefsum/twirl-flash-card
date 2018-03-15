@@ -1,5 +1,5 @@
 # twirl-flash-card
-Flash card system for twirling competitions
+Flash card system for twirling competitions.
 
 ![system diagram](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/1.SystemDiagram.PNG) 
 
@@ -35,7 +35,7 @@ Collect scores from judges and display the aggregate on a big screen using stand
     9. Create apache sites-available/sites-enabled file
    10. Import data from excel sheet
 
-   ##  Documentations
+   ##  Documentations needed!
     1. System requirements
     2. Installation guide
     3. Administration guide
