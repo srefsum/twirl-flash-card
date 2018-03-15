@@ -12,9 +12,9 @@ Collect scores from judges and display the aggregate on a big screen using stand
 # TODO list:
    
    ## Primary tasks
-    1. Add project files
-    2. Remove unused files
-    3. Create mysql template
+    1. ~~Add project files
+    2. ~~Remove unused files
+    3. ~~Create mysql template
     
    ## Develop (in no particular order)
     1. Add reorder 
@@ -22,10 +22,11 @@ Collect scores from judges and display the aggregate on a big screen using stand
     3. Sort out internal start numbers
     4. Sort out Athlete state handling
     5. Start generating simple reports (xlsx/pdf)
-    6. find logos for troops and add
-    7. finish language settings across all pages
-    8. start using global config file
-    9. create apache sites- file
+    6. Find logos for troops and add
+    7. Finish language settings across all pages
+    8. Start using global config file
+    9. Create apache sites-available/sites-enabled file
+   10. Import data from excel sheet
 
    ##  Documentations
     1. System requirements
