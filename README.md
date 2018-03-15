@@ -13,8 +13,8 @@ Collect scores from judges and display the aggregate on a big screen using stand
    
    ## Primary tasks
 - [x] Add project files       Completed.
-    - [x] Remove unused files     Completed.
-    - [x] Create mysql template   Completed.
+- [x] Remove unused files     Completed.
+- [x] Create mysql template   Completed.
     
    ## Develop (in no particular order)
     1. Add reorder 
