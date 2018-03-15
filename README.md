@@ -36,5 +36,11 @@ Collect scores from judges and display the aggregate on a big screen using stand
     5. User guide for presenter
     6. User guide for video stream connection
         
-    
+![system diagram](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/1.SystemDiagram.PNG) 
+![Load the events](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/2.LoadFiles.PNG)
+![Activate the Athlete](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/3.Activate.PNG)
+![Score the Preformance](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/4.Scores.PNG)
+![Lock down the given Score](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/5.ScoreLock.PNG)
+![Flash the Score to the audience](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/6.FlashScores.PNG)
+![Store the scores for reports](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/6.StoreScores.PNG)    
 
