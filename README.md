@@ -1,10 +1,10 @@
 # twirl-flash-card
-Flash card system for twirling competitions. 
+Flash card system for baton twirling competitions. For the athletes, the instructors, judges, competition organizers and the public.
 
 ![system diagram](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/1.SystemDiagram.PNG) 
 
 # System technology
-Standard LAMP application, with ubuntu/linux, apache, mysql, perl/mojolicious, javascript
+Standard LAMP application, with ubuntu/linux, apache, mysql, perl/mojolicious, javascript. All free software, no cost.
 
 # Purpose
 Collect scores from judges and display the aggregate on a big screen using standard web pages. The scores is available 1-2 seconds after all the judges has typed in their score. The judges see the progress of the other judges, but not their scores. 
