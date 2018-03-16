@@ -13,6 +13,9 @@ The head judge see the completion of the scores, so they can lock the score to t
 # Status
    Very alpha state, but proof of concept.
    Can be used for simple demonstrations.
+# Example Flash Card
+
+![Flash Card](https://github.com/srefsum/twirl-flash-card/blob/master/Doc/images/FlashCard.png) 
 
 # Licence 
    GLP 3.0
