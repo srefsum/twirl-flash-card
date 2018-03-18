@@ -992,6 +992,24 @@ sub RemoveActiveOnFloor {
     $dbh->disconnect();
 }
 
+sub GetAthletesCompleted {
+    my $VenueId    = shift;
+
+    my $dbh = __get_rancid_dbh();
+	my @rows;
+    my $sth = $dbh->prepare("SELECT * FROM StartNoCompleted WHERE VenueId = ?");
+    my $rv = $sth->execute($VenueId);
+	
+    if ($sth->rows() != 0 ) {
+        while (my $row = $sth->fetchrow_hashref()) {
+            push @rows, $row;
+        }
+    }
+    $sth->finish(); 
+    my $rc  = $dbh->disconnect;
+    return \@rows;    
+}
+
 sub StoreNewActiveOnFloor {
     my $VenueId    = shift;
 	my $EventsId   = shift;
@@ -1007,6 +1025,23 @@ sub StoreNewActiveOnFloor {
     $dbh->disconnect();
 }
 
+sub GetAthletesActiveOnFloor {
+    my $VenueId    = shift;
+
+    my $dbh = __get_rancid_dbh();
+	my @rows;
+    my $sth = $dbh->prepare("SELECT * FROM ActiveAthletes WHERE VenueId = ?");
+    my $rv = $sth->execute($VenueId);
+	
+    if ($sth->rows() != 0 ) {
+        while (my $row = $sth->fetchrow_hashref()) {
+            push @rows, $row;
+        }
+    }
+    $sth->finish(); 
+    my $rc  = $dbh->disconnect;
+    return \@rows;    
+}
 
 
 sub RemoveActiveAthlete {
@@ -1139,5 +1174,35 @@ sub LookupScoresToFlash {
     my $rc  = $dbh->disconnect;
     return \@rows;    
 }	   
+
+sub LookupAthletesInEvent {
+	my $VenueId        = shift;
+	my $EventId        = shift;
+	
+    my $dbh = __get_rancid_dbh();
+	my @rows;
+    
+ 	my $sth  = $dbh->prepare("SELECT ST.VenueId, ST.EventsId,ATH.AthletesName, ST.StartNo, ST.IntStartNo, "
+	        . "O.OriginName, EV.Category, EV.Division, EV.Level, EV.EvHeat, EV.Lane FROM Athletes ATH "
+			. "LEFT JOIN StartNo ST ON ATH.AthletesExtId = ST.AthletesId "
+			. "LEFT JOIN Origin O ON ATH.OriginId = O.OriginId "
+			. "LEFT JOIN Events EV ON ST.EventsId = EV.EventsId "
+			. "WHERE ST.VenueId = ? AND ST.EventsId = ? "
+			. "ORDER BY ST.IntStartNo ASC");
+    my $rv = $sth->execute($VenueId,$EventId);
+	
+    if ($sth->rows() != 0 ) {
+        while (my $row = $sth->fetchrow_hashref()) {
+            push @rows, $row;
+        }
+    }
+
+    $sth->finish(); 
+    my $rc  = $dbh->disconnect;
+    return \@rows;    
+}
+
+
+
 
 1;

@@ -163,6 +163,8 @@ sub startup {
   $rn->websocket ('/ws/admin_score_status')->to(controller => 'admin', action => 'score_status'); 
   $rn->route('/searchEvents')     ->over(authenticated => 1)->via('post')  ->to( controller => 'admin',  action => 'searchEvents');
   $rn->route('/SetStateforEvent') ->over(authenticated => 1)->via('post')  ->to( controller => 'admin',  action => 'SetStateforEvents');
+  $rn->route('/ReOrderAthletes')  ->over(authenticated => 1)->via('post')  ->to( controller => 'admin',  action => 'Reorder_Athletes');
+  
   $rn->route('/presenter')        ->over(authenticated => 1)->via('get')   ->to( controller => 'presenter',  action => 'Select');
   $rn->route('/flash')            ->over(authenticated => 1)->via('post')  ->to( controller => 'presenter',  action => 'Flash');
 }

@@ -37,6 +37,7 @@ sub Activate_Events {
 
 	my $Activerow = StoreMysql::LookupActiveListEntry($rows->[$i]{VenueId}, $rows->[$i]{EventsId});
 	
+	
 	if (defined($Activerow) and  scalar @$Activerow > 0) {
 		$Reply{Events}[$EnCount]{State} = $Activerow->[0]{State};
 	} else { 
@@ -96,20 +97,91 @@ sub Activate_Athletes {
 	$self->stash( EnCount                  => 1);
 	$self->stash( EventJudgesCnt           => 0);
 	$self->stash( Activate                 => 1);
-	$self->stash( EventJudgesUid            => 0);	
-	$self->stash( EventJudgesId             => 0);		
+	$self->stash( EventJudgesUid           => 0);	
+	$self->stash( EventJudgesId            => 0);		
 	$self->stash( user                     => 1);
 	$self->stash( SubmitButtLabl           => DTxt('LABL_SUBMB'));	
 	GlobalStash::SetGlobaleStashVariables($self);
 	
 	my $AthleteActive = StoreMysql::LookupAtletesToActivate();
 
+	my $ListToRemove = StoreMysql::GetAthletesCompleted($AthleteActive->[0]{VenueId});
+	for (my $i = 0;$i < @$ListToRemove; $i++) {
+		for (my $j = 0;$j < @$AthleteActive; $j++) {
+			if ($ListToRemove->[$i]{StartNo} == $AthleteActive->[$j]{StartNo}) {
+				$AthleteActive->[$j]{Deleted} = 1;
+				last;
+			}
+		}	
+	}
+	
+	my $AtletesOnFloor = StoreMysql::GetAthletesActiveOnFloor($AthleteActive->[0]{VenueId});
+	for (my $i = 0;$i < @$AtletesOnFloor; $i++) {
+		for (my $j = 0;$j < @$AthleteActive; $j++) {
+			if ($AtletesOnFloor->[$i]{StartNo} == $AthleteActive->[$j]{StartNo}) {
+				$AthleteActive->[$j]{Deleted} = 1;
+				last;
+			}
+		}	
+	}
+
+	
 	$self->stash( AthleteActive     =>   \@$AthleteActive);
 	$self->stash( EnContent   =>  encode_json \%ReplyEn );	
 	$self->stash( VenueId   =>  $AthleteActive->[0]{VenueId} );	
 	
 	$self->render( template => 'admin/deactivate' );
 }
+
+
+sub Reorder_Athletes {
+	my $self = shift;
+	
+	 
+	
+	my %ReplyEn;
+	my ($config,$user,$me) = Utils::SetGlobals($self);
+	$self->stash( tilbake                  => 1);
+	$self->stash( EnCount                  => 1);
+	$self->stash( EventJudgesCnt           => 0);
+	$self->stash( Activate                 => 2);
+	$self->stash( EventJudgesUid           => 0);	
+	$self->stash( EventJudgesId            => 0);		
+	$self->stash( user                     => 1);
+	$self->stash( SubmitButtLabl           => DTxt('LABL_SUBMB'));	
+	GlobalStash::SetGlobaleStashVariables($self);
+	
+	my $AthleteActive = StoreMysql::LookupAthletesInEvent($self->param('VenueId'), $self->param('EventsId'));
+
+	my $ListToRemove = StoreMysql::GetAthletesCompleted($self->param('VenueId'));
+	for (my $i = 0;$i < @$ListToRemove; $i++) {
+		for (my $j = 0;$j < @$AthleteActive; $j++) {
+			if ($ListToRemove->[$i]{StartNo} == $AthleteActive->[$j]{StartNo}) {
+				$AthleteActive->[$j]{Deleted} = 1;
+				last;
+			}
+		}	
+	}
+	
+	# my $AtletesOnFloor = StoreMysql::GetAthletesActiveOnFloor($AthleteActive->[0]{VenueId});
+	# for (my $i = 0;$i < @$AtletesOnFloor; $i++) {
+	# 	for (my $j = 0;$j < @$AthleteActive; $j++) {
+	# 		if ($AtletesOnFloor->[$i]{StartNo} == $AthleteActive->[$j]{StartNo}) {
+	# 			$AthleteActive->[$j]{Deleted} = 1;
+	# 			last;
+	# 		}
+	# 	}	
+	# }
+
+	
+	$self->stash( AthleteActive     =>   \@$AthleteActive);
+	$self->stash( EnContent   =>  encode_json \%ReplyEn );	
+	$self->stash( VenueId   =>  $AthleteActive->[0]{VenueId} );	
+	
+	$self->render( template => 'admin/deactivate' );
+}
+
+
 # TODO Fix IntStartNo --> Now set to Zero!
 sub SetAthleteStateActive {
   my $self = shift;

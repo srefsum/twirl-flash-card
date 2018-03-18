@@ -40,14 +40,20 @@
 								  <th class="Pref" width="5%"  >Withdrawn</th>
 								  <th class="Pref" width="5%"  >No Show</th>
 								  <th class="Pref" width="5%"  >OnFloor</th>
-							  % } else {
+							  % } elsif ($Activate == 0) {
 								  <th class="Pref" width="5%"  >Unlocked</th>
 								  <th class="Pref" width="5%"  >Locked</th>
+							  % } elsif ($Activate == 2) {
+								  <th class="Pref" width="5%"  >Up</th>
+								  <th class="Pref" width="5%"  >Down</th>
+								  <th class="Pref" width="5%"  >Top</th>
+								  <th class="Pref" width="5%"  >Bottom</th>
 							  %}
                            </tr>
                            </thead>
                            <tbody id="tableBody">
                            % for (my $i = 0; $i < scalar @$AthleteActive;$i++) {
+						   %  if (!defined($AthleteActive->[$i]{Deleted})) {
 						   %  my $CheckId = 'CheckStateNr' . $i;
 						   %  my $Traffic = 'traffic_' . $i;
                              <tr id= <%= $CheckId %> > 
@@ -74,7 +80,7 @@
 								  <td align="center" >  
 										<%= radio_button $CheckId => 1,id => "OnFloor" %>
 								  </td>
-							  % } else {
+							  % } elsif ($Activate == 0) {
 								  <td align="center" >   
 										<%= radio_button $CheckId => 1, checked => $AthleteActive->[$i]{Completed},id => "Unlocked" %>
 								  </td>
@@ -82,9 +88,15 @@
 										<%= radio_button $CheckId => 1,id => "Locked" %>
 								  </td>
 							  
+							  % } elsif ($Activate == 2) {
+								  <td align="center"> <img src="/static/ArrowUp.png"     onclick="myFunctionUp(this)" width="32%" alt="Up" /></td> 
+								  <td align="center"> <img src="/static/ArrowDown.png"   onclick="myFunctionDown(this)"width="32%" alt="Down" /></td> 
+								  <td align="center"> <img src="/static/ArrowTop.png"    width="32%" alt="Top" /></td> 
+								  <td align="center"> <img src="/static/ArrowBottom.png" width="32%" alt="Bottom" /></td> 
 							  % }
 							  </div>
                               </tr>
+                            % }               
                            % }               
                            </tbody>
                         </table>
@@ -327,7 +339,33 @@
           var x = JSON.stringify(new_tweets);
           SendSocketMessage(ws,x);
          }, 800);
- 
+    % } elsif ($Activate == 2) {
+	
+    function CloneDeleteInsert( obj, insert_object )
+    {
+        var found_object = obj.cloneNode(true);
+        obj.innerHTML = insert_object.innerHTML ;
+        return(found_object.innerHTML);
+    }
+
+    function myFunctionUp(obj) {
+        var row     = obj.parentNode.parentNode;   // == row object
+        var prevRow = row.previousElementSibling;  // == prev row  
+
+        for (var c = 0; c < 9 ; c++) {
+			row.cells[c].innerHTML = CloneDeleteInsert( prevRow.cells[c], row.cells[c].cloneNode(true)) ;
+		}
+    }
+
+    function myFunctionDown(obj) {
+        var row     = obj.parentNode.parentNode;   // == row object
+        var nextRow = row.nextElementSibling;      // == next row
+
+        for (var c = 0; c < 9 ; c++) {
+			row.cells[c].innerHTML = CloneDeleteInsert( nextRow.cells[c],  row.cells[c].cloneNode(true));
+        }
+    }
+		 
     % }  
 
 	 

@@ -117,7 +117,13 @@
 				     %  }
 				  </div>
                   </td>
-                  <td></td>
+                  <td>
+					%= form_for '/ReOrderAthletes' => {format => 'txt'} => (method => 'POST') => begin
+						<%= hidden_field VenueId => $Content->{Events}[$key]{'VenueId'}  %>
+						<%= hidden_field EventsId =>  $Content->{Events}[$key]{'EventsId'}   %>
+						<%= submit_button "Reorder", %>
+					%= end					  
+				  </td>
                </tr>
 
                % }
